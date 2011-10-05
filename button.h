@@ -1,0 +1,68 @@
+//
+// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
+// Arduino Library
+//
+// May 10, 2011 release 1 - initial release
+// Jun 15, 2011 release 2 - features added and bugs fixed
+// Jun 29, 2011 release 3 - setBackGroundColour added and SD card
+// Jul 31, 2011 release 4 - stdint.h types for chipKIT compatibility
+// Aug 04, 2011 release 5 - chipKIT compatibility with external proxySerial.h
+// Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
+// Sep 18, 2011 release 7 - dialog window with up to 3 buttons
+// Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
+//
+//
+// CC = BY NC SA
+// http://sites.google.com/site/vilorei/
+//
+//#include "Serial_LCD.h"
+#include "WProgram.h"
+//#include "Arduino.h"
+
+
+#ifndef button_h
+#define button_h
+
+class button {
+public:
+  button(Serial_LCD * pscreen0);
+
+  void define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0);
+  bool state() {     
+    return _enable;   
+  }
+  void draw(bool b1=false);
+  void enable(bool b1); 
+  bool check();
+
+private:
+  uint16_t _x1, _y1, _x2, _y2, _xt, _yt;
+  uint16_t _textColour, _highColour, _lowColour;
+  bool _enable;  
+  String _text;
+  Serial_LCD * _pscreen;
+  uint8_t _size;
+};
+
+
+class dialog {
+public:
+  dialog(Serial_LCD * pscreen0);
+  String prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, String text2, String button2, uint16_t textColour2, uint16_t highColour2, uint16_t lowColour2, String text3, String button3, uint16_t textColour3, uint16_t highColour3, uint16_t lowColour3);
+
+private:
+  Serial_LCD * _pscreen;
+  bool _checkedSD;
+
+
+};
+
+#endif
+
+
+
+
+
+
+
+

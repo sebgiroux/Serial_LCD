@@ -1,0 +1,47 @@
+Serial_LCD	KEYWORD1
+
+WhoAmI	KEYWORD2
+begin	KEYWORD2
+clear	KEYWORD2
+setBacklight	KEYWORD2
+setDisplay	KEYWORD2
+setContrast	KEYWORD2
+setOrientation	KEYWORD2
+setTouch	KEYWORD2
+off	KEYWORD2
+circle	KEYWORD2
+triangle	KEYWORD2
+rectangle	KEYWORD2
+setPenSolid	KEYWORD2
+setFont	KEYWORD2
+setFontSolid	KEYWORD2
+tText	KEYWORD2
+gText	KEYWORD2
+getTouchActivity	KEYWORD2
+getTouchXY	KEYWORD2
+rgb16	KEYWORD2
+nacAck	KEYWORD2
+fontX	KEYWORD2
+fontY	KEYWORD2
+prompt	KEYWORD2
+define	KEYWORD2
+draw	KEYWORD2
+enable	KEYWORD2
+check	KEYWORD2
+
+_lcd_nss	LITERAL1
+_font	LITERAL1
+_fontX	LITERAL1
+_fontY	LITERAL1
+_touch_buffer	LITERAL1
+button	LITERAL1
+dialog	LITERAL1
+
+_uIntPrint	LITERAL2
+_swap	LITERAL2
+_bytePrint	LITERAL2
+_stringPrint	LITERAL2
+_byteRead	LITERAL2
+_serialAvailable	LITERAL2
+_serialFlush	LITERAL2
+
