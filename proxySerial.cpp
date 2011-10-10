@@ -10,6 +10,7 @@
 // Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
+// Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
@@ -19,12 +20,22 @@
 
 #include "proxySerial.h"
 
-#if defined(__AVR__)
-#include <NewSoftSerial.h>
+// I2C case
+#if defined(__i2cSerialPort__) 
+#include "Wire.h"
+#include "i2cSerial.h"
+ProxySerial::ProxySerial(i2cSerial * port0) {
+  _proxyPort = port0; 
+}
+
+// Arduino Case
+#elif defined(__AVR__) 
+#include "NewSoftSerial.h"
 ProxySerial::ProxySerial(NewSoftSerial * port0) {
   _proxyPort = port0; 
 }
 
+// chipKIT Case
 #elif defined(__PIC32MX__) 
 ProxySerial::ProxySerial(HardwareSerial * port0) {
   _proxyPort = port0; 
@@ -32,7 +43,8 @@ ProxySerial::ProxySerial(HardwareSerial * port0) {
 
 #else
 #error Non defined board
-#endif 
+#endif
+
 
 void ProxySerial::_checkSpeed() {  
 //    while(!(millis()-_millis > 3));    // time in ms

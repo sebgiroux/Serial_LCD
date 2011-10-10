@@ -1,6 +1,6 @@
 //
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino Library
+// * μLCD-32PT(SGC) 3.2” Serial LCD Display Module
+// Arduino + chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -10,12 +10,27 @@
 // Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
+// Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+//
+//
+// * SC16IS750 I2C slave bridge to serial
+// Arduino + chipKIT Library
+//
+// Oct 06, 2011 release 1 - initial release
+// Oct 10, 2011 release 2 - Stream.h class based
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
 //
-// Arduino IDE 0022 / chipKIT mpide 0022
-// requires NewSoftSerial release 11 for Arduino
-//	http://arduiniana.org/2011/01/newsoftserial-11-beta/
-// requires hardware Serial1 port on chipKIT
+// * Required
+// NewSoftSerial release 11
+//
+// * See Bugs & ToDos
+//
+// * Based on
+// 4D LABS PICASO-SGC Command Set
+// Software Interface Specification
+// Document Date: 1st March 2011     
+// Document Revision: 6.0
+// http://www.4d-Labs.com
 //

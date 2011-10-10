@@ -13,6 +13,7 @@
 // Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
+// Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
