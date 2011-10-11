@@ -32,7 +32,7 @@
 #include "NewSoftSerial.h"
 
 // chipKIT Case
-// #elif defined(__PIC32MX__) 
+#elif defined(__PIC32MX__) 
 
 #else
 #error Non defined board
