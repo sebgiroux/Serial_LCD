@@ -192,6 +192,17 @@ uint8_t Serial_LCD::rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2
   return nacAck();
 }  
 
+uint8_t Serial_LCD::ellipse(uint16_t x, uint16_t y, uint16_t rx, uint16_t ry, uint16_t colour) {
+  _port->print('e');
+
+  _port->print(x);
+  _port->print(y);
+  _port->print(rx);
+  _port->print(ry);
+  _port->print(colour);
+
+  return nacAck();
+}  
 
 uint8_t Serial_LCD::line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t colour) {
   _port->print('L');
@@ -413,6 +424,17 @@ uint8_t Serial_LCD::getTouchXY(uint16_t &x, uint16_t &y) {
   else {
     return 0x15;
   }
+}
+
+uint8_t Serial_LCD::detectTouchRegion(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+  _port->print('u');
+
+  _port->print(x1);
+  _port->print(y1);
+  _port->print(x2);
+  _port->print(y2);
+
+  return nacAck();
 }
 
 // 2011-06-29 release 3

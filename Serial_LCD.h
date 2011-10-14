@@ -69,7 +69,7 @@ public:
   uint8_t line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t colour);  // Draw Line – 4Chex 
   // Draw Polygon – 67hex 
   uint8_t rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t colour);  // Draw Rectangle – 72hex 
-  // Draw Ellipse – 65hex 
+  uint8_t ellipse(uint16_t x, uint16_t y, uint16_t rx, uint16_t ry, uint16_t colour); // Draw Ellipse – 65hex 
   uint8_t point(uint16_t x1, uint16_t y1, uint16_t colour);   // Draw Pixel – 50hex 
   // Read Pixel – 52hex 
   // Screen Copy-Paste – 63hex 
@@ -90,7 +90,7 @@ public:
   uint8_t getTouchActivity();   // Get Touch Coordinates - 6Fhex - 0 : No Touch Activity 1 : Touch Press 2 : Touch Release 3 : Touch Moving
   uint8_t getTouchXY(uint16_t &x, uint16_t &y);   // Get Touch Coordinates - 6Fhex 
   // Wait Until Touch - 77hex 
-  // Detect Touch Region - 75hex
+  uint8_t detectTouchRegion(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2); // Detect Touch Region - 75hex
 
   // 2.5 SD Memory Card Commands (Low-Level/RAW)
   // Initialise Memory Card - @69hex 

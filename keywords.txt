@@ -12,6 +12,7 @@ off	KEYWORD2
 circle	KEYWORD2
 triangle	KEYWORD2
 rectangle	KEYWORD2
+ellipse	KEYWORD2
 setPenSolid	KEYWORD2
 setFont	KEYWORD2
 setFontSolid	KEYWORD2
@@ -19,6 +20,7 @@ tText	KEYWORD2
 gText	KEYWORD2
 getTouchActivity	KEYWORD2
 getTouchXY	KEYWORD2
+detectTouchRegion	KEYWORDS2
 rgb16	KEYWORD2
 nacAck	KEYWORD2
 fontX	KEYWORD2
