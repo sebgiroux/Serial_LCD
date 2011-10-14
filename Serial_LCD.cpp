@@ -14,6 +14,7 @@
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
@@ -226,7 +227,7 @@ uint8_t Serial_LCD::setBackGroundColour(uint16_t colour) {
 }
 
 uint8_t Serial_LCD::point(uint16_t x1, uint16_t y1, uint16_t colour) {
-  _port->print('L');
+  _port->print('P');
 
   _port->print(x1);
   _port->print(y1);
@@ -426,6 +427,9 @@ uint8_t Serial_LCD::getTouchXY(uint16_t &x, uint16_t &y) {
   }
 }
 
+
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// filters only events 1=press and 3=move
 uint8_t Serial_LCD::detectTouchRegion(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
   _port->print('u');
 

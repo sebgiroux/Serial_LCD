@@ -11,6 +11,7 @@
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 //
 //
 // * SC16IS750 I2C slave bridge to serial

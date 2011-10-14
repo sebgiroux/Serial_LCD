@@ -19,7 +19,7 @@
 //#include "Arduino.h"
 
 // Needs to be defined in both proxySerial and main program
-#define __i2cSerialPort__ 
+//#define __i2cSerialPort__ 
 
 
 // I2C case
