@@ -12,6 +12,7 @@ off	KEYWORD2
 circle	KEYWORD2
 triangle	KEYWORD2
 rectangle	KEYWORD2
+ellipse	KEYWORD2
 setPenSolid	KEYWORD2
 setFont	KEYWORD2
 setFontSolid	KEYWORD2
