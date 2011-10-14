@@ -426,6 +426,17 @@ uint8_t Serial_LCD::getTouchXY(uint16_t &x, uint16_t &y) {
   }
 }
 
+uint8_t Serial_LCD::detectTouchRegion(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+  _port->print('u');
+
+  _port->print(x1);
+  _port->print(y1);
+  _port->print(x2);
+  _port->print(y2);
+
+  return nacAck();
+}
+
 // 2011-06-29 release 3
 // 2.6 SD Memory Card Commands (FAT16-Level/DOS)
 // Initialise Memory Card - @69hex 

@@ -20,6 +20,7 @@ tText	KEYWORD2
 gText	KEYWORD2
 getTouchActivity	KEYWORD2
 getTouchXY	KEYWORD2
+detectTouchRegion	KEYWORDS2
 rgb16	KEYWORD2
 nacAck	KEYWORD2
 fontX	KEYWORD2
