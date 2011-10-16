@@ -48,7 +48,7 @@ ProxySerial::ProxySerial(HardwareSerial * port0) {
 
 void ProxySerial::_checkSpeed() {  
 //    while(!(millis()-_millis > 3));    // time in ms
-  while((millis()-_millis < 3));    // time in ms, the same !> = <
+  while((millis()-_millis < securityDelay));    // time in ms, the same !> = <
   _millis=millis();
 }
 

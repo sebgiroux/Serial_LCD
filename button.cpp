@@ -27,7 +27,13 @@ button::button(Serial_LCD * pscreen0)   {
   _pscreen = pscreen0;
 }
 
-void button::define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9) {
+
+void button::define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1) {
+  define( x1, y1, dx1, dy1, text0, textColour1, highColour1, lowColour1, 9);
+}
+
+
+void button::define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0) {
 
   _x1 = x1;
   _y1 = y1;
@@ -150,6 +156,18 @@ dialog::dialog(Serial_LCD * pscreen0)   {
 
 
 uint8_t a;
+String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1) {
+  return prompt(text0, kind0, textColour0, highColour0, lowColour0, text1, button1, textColour1, highColour1, lowColour1, "", "", 0, 0, 0, "", "", 0, 0, 0);
+}
+
+String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, String text2, String button2, uint16_t textColour2, uint16_t highColour2, uint16_t lowColour2) {
+  return prompt(text0, kind0, textColour0, highColour0, lowColour0, text1, button1, textColour1, highColour1, lowColour1, text2, button2, textColour2, highColour2, lowColour2, "", "", 0, 0, 0);
+}
+
+
+
+
+
 
 String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1="OK", uint16_t textColour1=0xffff, uint16_t highColour1=0x000f, uint16_t lowColour1=0x0008, String text2="", String button2="", uint16_t textColour2=0, uint16_t highColour2=0, uint16_t lowColour2=0, String text3="", String button3="", uint16_t textColour3=0, uint16_t highColour3=0, uint16_t lowColour3=0) {
   // init SD
@@ -296,6 +314,8 @@ String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_
 
   return answer;
 }
+
+
 
 
 

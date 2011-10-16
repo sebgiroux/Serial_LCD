@@ -1,4 +1,4 @@
-//
+
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
 // Arduino + chipKIT Library
 //
@@ -21,6 +21,7 @@
 // Needs to be defined in both proxySerial and main program
 //#define __i2cSerialPort__ 
 
+#define securityDelay 3
 
 // I2C case
 #if defined(__i2cSerialPort__) 

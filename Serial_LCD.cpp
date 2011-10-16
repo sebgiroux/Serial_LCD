@@ -56,8 +56,8 @@ void Serial_LCD::begin() {
 
   _port->print('o');    // clear touch 
   _port->print((char)0x04);   // touch state
-//  _port->flush();
-delay(100);
+  //  _port->flush();
+  delay(100);
   while (_port->available()) _port->read();
 
   setBacklight(true);  // backlight on
@@ -73,7 +73,7 @@ String Serial_LCD::WhoAmI() {
   String s="Serial uLCD-32PT ";
   _port->print('V');
   _port->print((char)0x00);
-delay(10);
+  delay(10);
 
   while(_port->available()!=0) {
     s += String(_port->read(), HEX);
@@ -98,6 +98,10 @@ void Serial_LCD::off() {
   setBacklight(false);  // backlight off
   clear();
   setDisplay(false);  // display off
+  
+  _port->print('Q');    // reset to default speed
+  _port->print((char)0x06);    // 
+  delay(10);
 }
 
 
@@ -454,10 +458,10 @@ uint8_t Serial_LCD::initSD() {
   delay(210);
   char a = nacAck();
   _checkedSD = (boolean)(a==0x06);
-  
+
   Serial.print("SDinit \t");
   Serial.println(_checkedSD, DEC);
-  
+
   return a;
 }
 
@@ -645,6 +649,7 @@ void Serial_LCD::_swap(uint16_t &a, uint16_t &b) {
   a=b;
   b=w;
 }
+
 
 
 

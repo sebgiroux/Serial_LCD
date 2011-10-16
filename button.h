@@ -28,7 +28,8 @@ class button {
 public:
   button(Serial_LCD * pscreen0);
 
-  void define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0);
+  void define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1);
+  void define(uint16_t x1, uint16_t y1, uint16_t dx1, uint16_t dy1, String text0, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, uint8_t size0=9);
   bool state() {     
     return _enable;   
   }
@@ -49,6 +50,8 @@ private:
 class dialog {
 public:
   dialog(Serial_LCD * pscreen0);
+  String prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1);
+  String prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, String text2, String button2, uint16_t textColour2, uint16_t highColour2, uint16_t lowColour2);
   String prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1, uint16_t textColour1, uint16_t highColour1, uint16_t lowColour1, String text2, String button2, uint16_t textColour2, uint16_t highColour2, uint16_t lowColour2, String text3, String button3, uint16_t textColour3, uint16_t highColour3, uint16_t lowColour3);
 
 private:
