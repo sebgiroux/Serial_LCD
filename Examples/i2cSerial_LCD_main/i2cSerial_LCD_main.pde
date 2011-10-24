@@ -1,6 +1,6 @@
 //
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino + chipKIT Library
+// Arduino & chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -11,56 +11,33 @@
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
-//
-//
-// SC16IS750 I2C slave bridge to serial
-// Arduino + chipKIT Library
-//
-// Oct 06, 2011 release 1 - initial release
-// Oct 10, 2011 release 2 - Stream.h class based
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 //
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
-//
-// Required
-// NewSoftSerial release 11
+// http://github.com/rei-vilo/Serial_LCD
 //
 // Based on
 // 4D LABS PICASO-SGC Command Set
 // Software Interface Specification
-// Document Date: 1st March 2011     
+// Document Date: 1st March 2011 
 // Document Revision: 6.0
 // http://www.4d-Labs.com
-
-// Needs to be defined in both proxySerial and main program
-#define __i2cSerialPort__ 
-
+//
+//
 #include "Serial_LCD.h"
 #include "proxySerial.h"
 #include "button.h"
 
 
 // I2C case
-#if defined(__i2cSerialPort__) 
 #include "Wire.h"
-#include"i2cSerial.h"
+#include "i2cSerial.h"
 i2cSerial myI2CSerial;
 ProxySerial mySerial(&myI2CSerial);
 
-// Arduino Case
-#elif defined(__AVR__) 
-#include "NewSoftSerial.h"
-NewSoftSerial nss(2, 3); // RX, TX
-ProxySerial mySerial(&nss);
-
-// chipKIT Case
-#elif defined(__PIC32MX__) 
-ProxySerial Serial1;
-
-#else
-#error Non defined board
-#endif
 
 
 Serial_LCD myLCD( &mySerial); 
@@ -127,18 +104,8 @@ void setup() {
   Serial.begin(19200);
   Serial.print("\n\n\n***\n");
 
-//#if defined(__AVR__)
-//  Serial.print("avr\t");
-//  Serial.print(__AVR__);
-//  Serial.print("\n");
-//#elif defined(__PIC32MX__) 
-//  Serial.print("chipKIT\t");
-//  Serial.print(__PIC32MX__);
-//  Serial.print("\n");
-//#endif 
-
   Wire.begin();
-
+myI2CSerial.begin(9600);
 
   myLCD.begin();
   myLCD.setOrientation(0x03);
