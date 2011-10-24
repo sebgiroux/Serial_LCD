@@ -1,31 +1,45 @@
+//
+// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
+// Arduino & chipKIT Library
+//
+// May 10, 2011 release 1 - initial release
+// Jun 15, 2011 release 2 - features added and bugs fixed
+// Jun 29, 2011 release 3 - setBackGroundColour added and SD card
+// Jul 31, 2011 release 4 - stdint.h types for chipKIT compatibility
+// Aug 04, 2011 release 5 - chipKIT compatibility with external proxySerial.h
+// Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
+// Sep 18, 2011 release 7 - dialog window with up to 3 buttons
+// Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
+// Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
+//
+//
+// CC = BY NC SA
+// http://sites.google.com/site/vilorei/
+// http://github.com/rei-vilo/Serial_LCD
+//
+// Based on
+// 4D LABS PICASO-SGC Command Set
+// Software Interface Specification
+// Document Date: 1st March 2011 
+// Document Revision: 6.0
+// http://www.4d-Labs.com
+//
+//
 #include "WProgram.h"
 #include <Wire.h>
 
 #include "Serial_LCD.h"
 #include "button.h"
 
-// Arduino Case : uncomment #include
-// #if defined(__AVR__) doesn't work!
-// ---
-//#include "NewSoftSerial.h"
-// ===
-
 #include "proxySerial.h"
 
-#if defined(__AVR__)
+
 // Arduino Case ---
 #include "NewSoftSerial.h"
 NewSoftSerial nss(2, 3); // RX, TX
 ProxySerial mySerial(&nss);
-
-#elif defined(__PIC32MX__) 
-// chipKIT Case ---
-ProxySerial mySerial(&Serial1);
-
-#else
-#error Non defined board
-#endif 
-
 
 Serial_LCD myLCD( &mySerial); 
 
@@ -102,6 +116,8 @@ void setup() {
   Serial.print(__PIC32MX__);
   Serial.print("\n");
 #endif 
+
+nss.begin(9600);
 
   myLCD.begin();
   myLCD.setOrientation(0x03);
