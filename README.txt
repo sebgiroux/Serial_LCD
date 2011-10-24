@@ -1,6 +1,6 @@
 //
-// * μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino + chipKIT Library
+// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
+// Arduino & chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -12,6 +12,7 @@
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 //
 //
 // * SC16IS750 I2C slave bridge to serial
