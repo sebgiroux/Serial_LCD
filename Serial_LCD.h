@@ -1,6 +1,6 @@
 //
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino Library
+// Arduino & chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -12,10 +12,12 @@
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 //
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
+// http://github.com/rei-vilo/Serial_LCD
 //
 // Based on
 // 4D LABS PICASO-SGC Command Set
@@ -43,7 +45,7 @@ public:
 
   // 2.1 General Commands
   void begin(); // AutoBaud – 55hex 
-  // Set new Baud-Rate - 51hex 
+  uint8_t setSpeed(uint16_t speed); // Set new Baud-Rate - 51hex 
   String WhoAmI(); // Version-Device Info Request – 56hex 
   // Replace Background Colour – 42hex 
   uint8_t clear(); // Clear Screen – 45hex

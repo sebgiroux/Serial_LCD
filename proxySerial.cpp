@@ -1,6 +1,6 @@
 //
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino Library
+// Arduino & chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -11,50 +11,41 @@
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+// Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
+//
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
+// http://github.com/rei-vilo/Serial_LCD
+//
+// Based on
+// 4D LABS PICASO-SGC Command Set
+// Software Interface Specification
+// Document Date: 1st March 2011 
+// Document Revision: 6.0
+// http://www.4d-Labs.com
+//
 //
 #include "WProgram.h"
-//#include "Arduino.h"
-
+#include "Stream.h"
 #include "proxySerial.h"
 
-// I2C case
-#if defined(__i2cSerialPort__) 
-#include "Wire.h"
-#include "i2cSerial.h"
-ProxySerial::ProxySerial(i2cSerial * port0) {
+
+ProxySerial::ProxySerial(Stream * port0) {
   _proxyPort = port0; 
 }
-
-// Arduino Case
-#elif defined(__AVR__) 
-#include "NewSoftSerial.h"
-ProxySerial::ProxySerial(NewSoftSerial * port0) {
-  _proxyPort = port0; 
-}
-
-// chipKIT Case
-#elif defined(__PIC32MX__) 
-ProxySerial::ProxySerial(HardwareSerial * port0) {
-  _proxyPort = port0; 
-}
-
-#else
-#error Non defined board
-#endif
 
 
 void ProxySerial::_checkSpeed() {  
-//    while(!(millis()-_millis > 3));    // time in ms
+  //    while(!(millis()-_millis > 3));    // time in ms
   while((millis()-_millis < securityDelay));    // time in ms, the same !> = <
   _millis=millis();
 }
 
-void ProxySerial::begin(uint16_t b) {
+void ProxySerial::begin(uint16_t b) {  // to be managed at serial port level
   _checkSpeed();  
-  _proxyPort->begin(b); 
+//  _proxyPort->begin(b); 
 }
 
 void ProxySerial::print(int8_t i) { 
@@ -84,9 +75,9 @@ void ProxySerial::print(char c) {
 };
 void ProxySerial::print(String s) { 
   for (uint8_t i=0; i<s.length(); i++)         {
-//  _checkSpeed();  
+    //  _checkSpeed();  
     _proxyPort->print(s.charAt(i));
-}
+  }
 }
 
 uint8_t ProxySerial::read() { 
@@ -101,6 +92,7 @@ void ProxySerial::flush() {
   _checkSpeed();  
   _proxyPort->flush(); 
 }
+
 
 
 

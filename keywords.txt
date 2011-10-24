@@ -2,6 +2,7 @@ Serial_LCD	KEYWORD1
 
 WhoAmI	KEYWORD2
 begin	KEYWORD2
+setSpeed	KEYWORD2
 clear	KEYWORD2
 setBacklight	KEYWORD2
 setDisplay	KEYWORD2

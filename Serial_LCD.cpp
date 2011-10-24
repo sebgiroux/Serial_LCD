@@ -1,9 +1,6 @@
-// μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino Library
-//
 //
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
-// Arduino Library
+// Arduino & chipKIT Library
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -15,22 +12,27 @@
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
+// Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
+//
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
+// http://github.com/rei-vilo/Serial_LCD
 //
-// Based on 
+// Based on
 // 4D LABS PICASO-SGC Command Set
 // Software Interface Specification
 // Document Date: 1st March 2011 
 // Document Revision: 6.0
 // http://www.4d-Labs.com
-
+//
+//
 #include "WProgram.h"
 //#include "Arduino.h"
 
 #include "proxySerial.h"
 #include "Serial_LCD.h"
+
 
 
 // Constructor
@@ -43,14 +45,13 @@ Serial_LCD::Serial_LCD(ProxySerial * port0) {
 // 2.1 General Commands
 // AutoBaud – 55hex 
 void Serial_LCD::begin() {
+  // default speed = 9600
+
   // LCD 500 ms power-up
   // SD card 3000 ms power-up
   delay(500);
-
-  _port->begin(9600);
-
   _port->print('U');    // connect
-  while (_port->read()!=6)  {     
+  while (_port->read()!=0x06)  {     
     delay(100);  
   }
 
@@ -66,6 +67,25 @@ void Serial_LCD::begin() {
   clear();
   setFont(1);
   _checkedSD=false;  // SD not checked
+
+}
+
+uint8_t Serial_LCD::setSpeed(uint16_t speed) {
+  uint8_t a=0x06;
+  if (speed==19200) a=0x08;
+  else if (speed==38400) a=0x0a;  // max for Arduino
+  else if (speed==57600) a=0x0c;
+  else if (speed==115200) a=0x0d; // ok with chipKIT
+
+  if (a != 0x06) {
+    _port->print('Q');
+    _port->print((char)a); 
+    while (!_port->available());
+    a=_port->read();
+    
+  }
+  a=0x06;
+  return a;
 }
 
 
@@ -98,7 +118,7 @@ void Serial_LCD::off() {
   setBacklight(false);  // backlight off
   clear();
   setDisplay(false);  // display off
-  
+
   _port->print('Q');    // reset to default speed
   _port->print((char)0x06);    // 
   delay(10);
@@ -649,6 +669,7 @@ void Serial_LCD::_swap(uint16_t &a, uint16_t &b) {
   a=b;
   b=w;
 }
+
 
 
 

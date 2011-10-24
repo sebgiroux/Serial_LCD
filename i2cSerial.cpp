@@ -12,7 +12,8 @@
 
 #include "WProgram.h"
 #include <Wire.h>
-#include "i2cSerial.h";
+#include "i2cSerial.h"
+#include "Stream.h"
 
 // ---------------- Functions
 
@@ -77,7 +78,7 @@ String i2cSerial::WhoAmI() {
 }
 
 
-void i2cSerial::begin(uint16_t b) {
+void i2cSerial::begin(long b) {
 
   _writeTo(_address, 0x0e << 3, 0x01 << 3); // software reset
 

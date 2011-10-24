@@ -22,7 +22,7 @@ class i2cSerial : public Stream
 public:
   i2cSerial(); // constructor
   String WhoAmI();
-  void begin(uint16_t b=9600);
+  void begin(long b=9600);
   boolean test();
 
   virtual void write(uint8_t byte);
@@ -33,11 +33,6 @@ public:
   virtual int peek(); // !
   int free();       // TX
 
-//  void set(int8_t i);
-//  uint8_t get();
-//  int16_t available();  // RX
-//  void flush();
-  
 private:
   int8_t _address;
 };

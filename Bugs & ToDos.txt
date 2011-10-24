@@ -1,9 +1,6 @@
 // Bugs - ToDos
 //
-// #define __i2cSerialPort__ needs to be defined in both proxySerial and main program
-//
 // int i2cSerial::peek() not clearly defined
 //
-// how to simplify the whole thing and avoid charging non used libraries?
+// Examples except port_main may need some adaptation to release 11.
 //
-// 
