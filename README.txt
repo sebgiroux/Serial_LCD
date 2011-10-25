@@ -20,6 +20,7 @@
 //
 // Oct 06, 2011 release 1 - initial release
 // Oct 10, 2011 release 2 - Stream.h class based
+// Oct 25, 2011 release 3 - I2C address selection through parameter default=0, 1, 2 or 12
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/

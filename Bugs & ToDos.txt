@@ -4,3 +4,5 @@
 //
 // Examples except port_main may need some adaptation to release 11.
 //
+// HardwareSerial not derived from Stream on chipKIT platform
+//

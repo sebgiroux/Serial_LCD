@@ -4,6 +4,7 @@
 //
 // Oct 06, 2011 release 1 - initial release
 // Oct 10, 2011 release 2 - Stream.h class based
+// Oct 25, 2011 release 3 - I2C address selection through parameter default=0, 1, 2 or 12
 //
 //
 // CC = BY NC SA
@@ -12,7 +13,7 @@
 
 #include "WProgram.h"
 #include <Wire.h>
-#include "i2cSerial.h"
+#include "I2C_Serial.h"
 #include "Stream.h"
 
 // ---------------- Functions
@@ -62,14 +63,21 @@ static uint8_t _readByteFrom(int8_t device, uint8_t address) {
 
 // ---------------- Class
 
-i2cSerial::i2cSerial() // constructor
+I2C_Serial::I2C_Serial() // constructor
 // as per http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1250997678
 {
   _address=0x48; 
 }
 
+I2C_Serial::I2C_Serial(uint8_t n) // constructor
+{
+  _address=0x48;                  // a0/a1=+/+ : default I2C serial port
+  if (n==1) _address=0x49;        // a0/a1=-/+ : secondary I2C serial port
+  else if (n==2) _address=0x4c;   // a0/a1=+/- : RFID ID-2 sensor board
+  else if (n==12) _address=0x4d;  // a0/a1=-/- : RFID ID-12 sensor board
+}
 
-String i2cSerial::WhoAmI() {
+String I2C_Serial::WhoAmI() {
   String s="";
   if (_address < 0x10) s="0";
   s = s + String(_address, 0x10) +"h ";
@@ -78,7 +86,7 @@ String i2cSerial::WhoAmI() {
 }
 
 
-void i2cSerial::begin(long b) {
+void I2C_Serial::begin(long b) {
 
   _writeTo(_address, 0x0e << 3, 0x01 << 3); // software reset
 
@@ -99,7 +107,7 @@ void i2cSerial::begin(long b) {
 }
 
 
-void i2cSerial::write(uint8_t byte) {
+void I2C_Serial::write(uint8_t byte) {
   //  //                                   start I2C    
   //  Wire.beginTransmission(_address); // talk to device at _address
   //  Wire.send(0x00);                   // command 
@@ -109,7 +117,7 @@ void i2cSerial::write(uint8_t byte) {
 }
 
 
-int i2cSerial::read() {
+int I2C_Serial::read() {
   //  Wire.beginTransmission(_address); //start transmission to ACC 
   //  Wire.send(0x00);                   // command 
   //  Wire.endTransmission(); //end transmission
@@ -125,7 +133,7 @@ int i2cSerial::read() {
 }
 
 
-boolean i2cSerial::test() {
+boolean I2C_Serial::test() {
   char a = (char)random(0x00, 0xff);
   _writeTo(_address, 0x07 << 3, a); // Scratch Pad Register
   delay(3);
@@ -134,21 +142,21 @@ boolean i2cSerial::test() {
 }
 
 
-int i2cSerial::available() {
+int I2C_Serial::available() {
   return _readByteFrom(_address, 0x09 << 3); // Receiver FIFO Level register
 }
 
-int i2cSerial::peek() {
+int I2C_Serial::peek() {
   if (available()==0) return -1;
   else return 1; // ?
 }
 
-int i2cSerial::free() {
+int I2C_Serial::free() {
   return _readByteFrom(_address, 0x08 << 3); // Transmitter FIFO Level register
 }
 
 
-void i2cSerial::flush() {
+void I2C_Serial::flush() {
   _writeTo(_address, 0x02 << 3, 0x06); // reset TXFIFO, reset RXFIFO, non FIFO mode
   _writeTo(_address, 0x02 << 3, 0x01); // enable FIFO mode   
 }
