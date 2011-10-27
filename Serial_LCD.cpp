@@ -13,7 +13,7 @@
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
-//
+// Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
@@ -70,16 +70,17 @@ void Serial_LCD::begin() {
 
 }
 
+
 uint8_t Serial_LCD::setSpeed(uint16_t speed) {
   uint8_t a=0x06;
-  if (speed==19200) a=0x08;
-  else if (speed==38400) a=0x0a;  // max for Arduino
-  else if (speed==57600) a=0x0c;
-  else if (speed==115200) a=0x0d; // ok with chipKIT
+  if (speed==(uint16_t)19200) a=0x08;
+  else if (speed==(uint16_t)38400) a=0x0a;  // max for Arduino
+  else if (speed==(uint16_t)57600) a=0x0c;
+  else if (speed==(uint16_t)115200) a=0x0d; // ok with chipKIT
 
   if (a != 0x06) {
     _port->print('Q');
-    _port->print((char)a); 
+    _port->print((uint8_t)a); 
     while (!_port->available());
     a=_port->read();
     

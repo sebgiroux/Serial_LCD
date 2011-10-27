@@ -13,6 +13,7 @@
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
+// Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 //
 //
 // * SC16IS750 I2C slave bridge to serial
@@ -20,7 +21,6 @@
 //
 // Oct 06, 2011 release 1 - initial release
 // Oct 10, 2011 release 2 - Stream.h class based
-// Oct 25, 2011 release 3 - I2C address selection through parameter default=0, 1, 2 or 12
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
