@@ -2,6 +2,15 @@
 // μLCD-32PT(SGC) 3.2” Serial LCD Display Module
 // Arduino & chipKIT Library
 //
+// Serial Port Multiple Options
+//          . Arduino . chipKIT .
+// hardware : Arduino Serial (pins 0 & 1)
+//          : chipKIT Serial (pins 0 & 1) + Serial1 (pins 39 & 40)
+// software : Arduino with library NewSoftSerial release 11
+//          : chipKIT not available
+// i2c      : Arduino (pins 4 & 5) with library I2C_Serial
+//          : chipKIT (pins 4 & 5) with library I2C_Serial
+//
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
 // Jun 29, 2011 release 3 - setBackGroundColour added and SD card

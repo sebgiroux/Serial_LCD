@@ -13,6 +13,8 @@
 // Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
+// Oct 27, 2011 release 12 - setSpeed fixed for 155200 
+// Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 //
 //
 // CC = BY NC SA
