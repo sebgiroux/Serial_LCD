@@ -2,7 +2,3 @@
 //
 // int i2cSerial::peek() not clearly defined
 //
-// HardwareSerial not derived from Stream on chipKIT platform
-//
-// 	see issue #140 at http://github.com/chipKIT32/chipKIT32-MAX/issues/140
-//
