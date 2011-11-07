@@ -3,6 +3,7 @@
 //
 // 
 // Nov 06, 2011 release 1 - initial release
+// Nov 07, 2011 release 2 - nicer colours!
 //
 //
 // Required : Serial_LCD release 13
@@ -67,8 +68,8 @@ void new_game() {
 
 
 void setup() {
-  //  Serial.begin(19800);
-  //  Serial.print("\n\n\n***\n");
+//  Serial.begin(19800);
+//  Serial.print("\n\n\n***\n");
 
   Serial1.begin(9600);
   myLCD.begin();
@@ -81,15 +82,28 @@ void setup() {
   myLCD.setPenSolid(true);
   myLCD.setTouch(true);
 
+  // dying: from red to yellow to orange to black
+  clut[8]=myLCD.rgb16(255, 0, 0);
+  clut[9]=myLCD.rgb16(255, 85, 0);
+  clut[10]=myLCD.rgb16(255, 170, 0);
+  clut[11]=myLCD.rgb16(255, 255, 0);
+  clut[12]=myLCD.rgb16(191, 191, 0);
+  clut[13]=myLCD.rgb16(127, 127, 0);
+  clut[14]=myLCD.rgb16(63, 63, 0);
+  clut[15]=myLCD.rgb16(0, 0, 0);
+  
+  // living: from blue to green 3x 5 bits
+  clut[0]=myLCD.rgb16(0, 255, 0);
+  clut[1]=myLCD.rgb16(0, 204, 0);
+  clut[2]=myLCD.rgb16(0, 153, 0);
+  clut[3]=myLCD.rgb16(0, 102, 51);
+  clut[4]=myLCD.rgb16(0, 51, 102);
+  clut[5]=myLCD.rgb16(0, 0, 153);
+  clut[6]=myLCD.rgb16(0, 0, 204);
+  clut[7]=myLCD.rgb16(0, 0, 255);
 
 
-  for (uint8_t i=0; i<8; i++) {
-    clut[i]=myLCD.rgb16(0xff-(i*0x7f), i*0x7f, 0x00);
-  }
 
-  for (uint8_t i=0; i<8; i++) {
-    clut[i+8]=myLCD.rgb16(0, i*0xff, 0xff-(i*0xff));
-  }
 
 
   randomSeed(analogRead(0));
@@ -155,14 +169,14 @@ void update_pixel(int i, int j, int neighbours) {
     }
   }
 
-  //  Serial.print(i, DEC);
-  //  Serial.print("\t");  
-  //  Serial.print(j, DEC);
-  //  Serial.print("\t");
-  //  Serial.print(_screen[rf][i][j], HEX);
-  //  Serial.print("\t");
-  //  Serial.print(clut[_screen[rf][i][j]]);
-  //  Serial.print("\n");
+//  Serial.print(i, DEC);
+//  Serial.print("\t");  
+//  Serial.print(j, DEC);
+//  Serial.print("\t");
+//  Serial.print(_screen[rf][i][j], HEX);
+//  Serial.print("\t");
+//  Serial.print(clut[_screen[rf][i][j]]);
+//  Serial.print("\n");
 
   //  myLCD.point(i, j, clut[_screen[rf][i][j]]);
   myLCD.rectangle(4*i, 4*j, 4*i+3, 4*j+3, clut[_screen[rf][i][j]]);
@@ -279,7 +293,7 @@ void loop() {
   //  }
   //  TMR4 = 0;
   //  IFS0CLR = _IFS0_T5IF_MASK;
-  delay(300);
+//  delay(300);
   if (myLCD.getTouchActivity()>0) {
     myLCD.off();
     while(1);
@@ -343,6 +357,8 @@ void loop() {
 //#ifdef __cplusplus
 //}
 //#endif
+
+
 
 
 
