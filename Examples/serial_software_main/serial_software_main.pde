@@ -4,12 +4,12 @@
 
 // === Serial port choice
 // --- SoftwareSerial Case - Arduino only
-//#include "NewSoftSerial.h"
-//NewSoftSerial myNSS(2, 3)
-//ProxySerial mySerial(&myNSS);
+#include "NewSoftSerial.h"
+NewSoftSerial myNSS(2, 3);
+ProxySerial mySerial(&myNSS);
 //
 // --- HardwareSerial Case - Arduino + chipKIT
-ProxySerial mySerial(&Serial1);
+//ProxySerial mySerial(&Serial1);
 // 
 // --- i2cSerial Case - Arduino + chipKIT
 //#include "Wire.h"
@@ -35,14 +35,14 @@ void setup() {
 
 //  // === Serial port initialisation
 //  // --- SoftwareSerial Case - Arduino only
-//  myNSS.begin(9600);
-//  Serial.print("SoftwareSerial\t");
-//  Serial.print("\n");
+  myNSS.begin(9600);
+  Serial.print("SoftwareSerial\t");
+  Serial.print("\n");
 //  //
 //  // --- HardwareSerial Case - Arduino + chipKIT
-  Serial1.begin(9600);
-  Serial.print("HardwareSerial\t");
-  Serial.print("\n");
+//  Serial1.begin(9600);
+//  Serial.print("HardwareSerial\t");
+//  Serial.print("\n");
 //  // 
 //  // --- i2cSerial Case - Arduino + chipKIT
 //  Wire.begin();
@@ -59,10 +59,10 @@ void setup() {
 
 //  // === Serail port speed up
 //  // --- SoftwareSerial Case - Arduino only
-//  myNSS.begin(38400);
+  myNSS.begin(38400);
 //  //
 //  // --- HardwareSerial Case - Arduino + chipKIT
-  Serial1.begin(38400);
+//  Serial1.begin(38400);
 //  // 
 //  // --- i2cSerial Case - Arduino + chipKIT
 //  myI2C.begin(38400);

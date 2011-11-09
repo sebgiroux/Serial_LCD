@@ -10,7 +10,7 @@
 // Aug 07, 2011 release 6 - playing sounds - up to 250 mA!
 // Sep 18, 2011 release 7 - dialog window with up to 3 buttons
 // Sep 23, 2011 release 8 - ms monitoring to avoid RX TX collapse
-// Oct 10, 2011 release 9 - Stream.h class based i2cSerial library
+// Oct 10, 2011 release 9 - Stream.h class based I2C_Serial library
 // Oct 14, 2011 release 10 - ellipse and detectTouchRegion from sebgiroux
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 //
@@ -34,19 +34,19 @@
 
 // I2C case --- ok
 #include "Wire.h"
-#include "i2cSerial.h"
-i2cSerial myI2CSerial;
-ProxySerial myPort(&myI2CSerial);
+//#include "I2C_Serial.h"
+//I2C_Serial myI2C_Serial(0);
+//ProxySerial myPort(&myI2C_Serial);
 // ---
 
 // Arduino Case --- ok
-//#include "NewSoftSerial.h"
-//NewSoftSerial mySoftSerial(2, 3); // RX, TX
-//ProxySerial myPort(&mySoftSerial);
+#include "NewSoftSerial.h"
+NewSoftSerial mySoftSerial(2, 3); // RX, TX
+ProxySerial myPort(&mySoftSerial);
 // ---
 
 // chipKIT Case ---
-//ProxySerial myPort(&Serial1);
+//ProxySerial myPort(&mySerial);
 // ---
 
 Serial_LCD myLCD( &myPort); 
@@ -57,56 +57,6 @@ uint32_t l;
 button b7( &myLCD);
 
 
-String ftoa(float number, uint8_t precision, uint8_t size) {
-  // Based on mem,  16.07.2008
-  // http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num = 1207226548/6#6
-
-  // prints val with number of decimal places determine by precision
-  // precision is a number from 0 to 6 indicating the desired decimial places
-  // example: printDouble(3.1415, 2); // prints 3.14 (two decimal places)
-
-  // Added rounding, size and overflow #
-  // ftoa(343.1453, 2, 10) -> "    343.15"
-  // ftoa(343.1453, 4,  7) -> "#      "
-  // avenue33, April 10th, 2010
-
-  String s = "";
-
-  // Negative 
-  if (number < 0.0)  {
-    s = "-";
-    number = -number;
-  }
-
-  double rounding = 0.5;
-  for (uint8_t i = 0; i < precision; ++i)    rounding /= 10.0;
-
-  number += rounding;
-  s += String(uint16_t(number));  // prints the integer part
-
-  if(precision > 0) {
-    s += ".";                // prints the decimal point
-    uint32_t frac;
-    uint32_t mult = 1;
-    uint8_t padding = precision -1;
-    while(precision--)     mult *= 10;
-
-    frac = (number - uint16_t(number)) * mult;
-
-    uint32_t frac1 = frac;
-    while(frac1 /= 10)    padding--;
-    while(padding--)      s += "0";
-
-    s += String(frac,DEC) ;  // prints the fractional part
-  }
-
-  if (size>0)                // checks size
-    if (s.length()>size)        return("#");
-    else while(s.length()<size) s = " "+s;
-
-  return s;
-}
-
 
 void setup() {
   Serial.begin(19200);
@@ -114,20 +64,21 @@ void setup() {
 
   // Cases ---
 //  Serial1.begin(9600); // chipKIT hardware case 
-//  mySoftSerial.begin(9600); // software case
-  Wire.begin(); // i2c case
-  myI2CSerial.begin(9600); // i2c case 
+  mySoftSerial.begin(9600); // software case
+//  Wire.begin(); // i2c case
+//  myI2C_Serial.begin(9600); // i2c case 
   // ---
 
   myLCD.begin();
 
   Serial.print("begin\n");
 
-  myLCD.setSpeed(19200);
 
   // Cases ---
-  myI2CSerial.begin(19200); // i2c = 38400 max
+//  myLCD.setSpeed(19200);
+//  myI2C_Serial.begin(19200); // i2c = 38400 max
 //  mySoftSerial.begin(19200); // software = 38400 max
+//  myLCD.setSpeed(115200);
 //  Serial1.begin(115200);     // chipKIT hardware = 115200 ok
   // ---
 
