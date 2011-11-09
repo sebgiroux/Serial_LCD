@@ -3,13 +3,13 @@
 // Arduino & chipKIT Library
 //
 // Serial Port Multiple Options
-//          . Arduino . chipKIT .
-// hardware : Arduino Serial (pins 0 & 1)
-//          : chipKIT Serial (pins 0 & 1) + Serial1 (pins 39 & 40)
-// software : Arduino with library NewSoftSerial release 11
-//          : chipKIT not available
-// i2c      : Arduino (pins 4 & 5) with library I2C_Serial
-//          : chipKIT (pins 4 & 5) with library I2C_Serial
+//
+// hardware : Arduino . Serial (pins 0 & 1)
+//          : chipKIT . Serial (pins 0 & 1) + Serial1 (pins 39 & 40)
+// software : Arduino . with library NewSoftSerial release 11
+//          : chipKIT . not available
+// i2c      : Arduino . (pins 4 & 5) with library I2C_Serial
+//          : chipKIT . (pins 4 & 5) with library I2C_Serial
 //
 // May 10, 2011 release 1 - initial release
 // Jun 15, 2011 release 2 - features added and bugs fixed
@@ -24,6 +24,7 @@
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
+// Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 //
 //
 // * SC16IS750 I2C slave bridge to serial

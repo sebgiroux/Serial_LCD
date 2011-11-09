@@ -35,7 +35,6 @@
 #include "Serial_LCD.h"
 
 
-
 // Constructor
 Serial_LCD::Serial_LCD(ProxySerial * port0) {
   _port=port0;

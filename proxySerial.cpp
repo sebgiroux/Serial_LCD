@@ -15,6 +15,7 @@
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
+// Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 //
 //
 // CC = BY NC SA
@@ -31,8 +32,62 @@
 //
 #include "WProgram.h"
 #include "Stream.h"
-#include "proxySerial.h"
+#include "proxy_Serial.h"
 
+// Utilities
+
+String ftoa(float number, byte precision, byte size) {
+    // Based on mem,  16.07.2008
+    // http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num = 1207226548/6#6
+    
+    // prints val with number of decimal places determine by precision
+    // precision is a number from 0 to 6 indicating the desired decimial places
+    // example: printDouble(3.1415, 2); // prints 3.14 (two decimal places)
+    
+    // Added rounding, size and overflow #
+    // ftoa(343.1453, 2, 10) -> "    343.15"
+    // ftoa(343.1453, 4,  7) -> "#      "
+    // avenue33, April 10th, 2010
+    
+    String s = "";
+    
+    // Negative 
+    if (number < 0.0)  {
+        s = "-";
+        number = -number;
+    }
+    
+    double rounding = 0.5;
+    for (byte i = 0; i < precision; ++i)    rounding /= 10.0;
+    
+    number += rounding;
+    s += String(int(number));  // prints the integer part
+    
+    if(precision > 0) {
+        s += ".";                // prints the decimal point
+        unsigned long frac;
+        unsigned long mult = 1;
+        byte padding = precision -1;
+        while(precision--)     mult *= 10;
+        
+        frac = (number - int(number)) * mult;
+        
+        unsigned long frac1 = frac;
+        while(frac1 /= 10)    padding--;
+        while(padding--)      s += "0";
+        
+        s += String(frac,DEC) ;  // prints the fractional part
+    }
+    
+    if (size>0)                // checks size
+        if (s.length()>size)        return("#");
+        else while(s.length()<size) s = " "+s;
+    
+    return s;
+}
+
+
+// Object
 
 ProxySerial::ProxySerial(Stream * port0) {
   _proxyPort = port0; 

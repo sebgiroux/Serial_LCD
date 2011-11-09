@@ -15,7 +15,9 @@
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
+// Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 //
+// proxySerial ensures the right print is used
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
@@ -33,10 +35,17 @@
 #include "Stream.h"
 //#include "Arduino.h"
 
-#define securityDelay 3
+#define securityDelay 0
 
-#ifndef proxySerial_h
-#define proxySerial_h
+#ifndef proxy_Serial_h
+#define proxy_Serial_h
+
+// Utilities
+
+String ftoa(float number, byte precision, byte size);
+
+
+// Objects
 
 class ProxySerial
 {

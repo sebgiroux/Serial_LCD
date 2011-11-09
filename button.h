@@ -15,6 +15,7 @@
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
+// Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 //
 //
 // CC = BY NC SA
