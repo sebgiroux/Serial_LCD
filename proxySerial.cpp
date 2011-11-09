@@ -32,7 +32,7 @@
 //
 #include "WProgram.h"
 #include "Stream.h"
-#include "proxy_Serial.h"
+#include "proxySerial.h"
 
 // Utilities
 
