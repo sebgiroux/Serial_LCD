@@ -27,6 +27,11 @@
 // Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 //
 //
+// * Tutorial
+// Basics: http://sites.google.com/site/vilorei/arduino/13--serial-touch-320x240-lcd-screen/13i--back-to-basics
+// Serial ports: http://sites.google.com/site/vilorei/arduino/13--serial-touch-320x240-lcd-screen/13p--tutorial-2-playing-with-serial-ports
+//
+//
 // * SC16IS750 I2C slave bridge to serial
 // Arduino + chipKIT Library
 //
@@ -36,10 +41,13 @@
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
 //
+//
 // * Required
 // NewSoftSerial release 11
 //
+//
 // * See Bugs & ToDos
+//
 //
 // * Based on
 // 4D LABS PICASO-SGC Command Set
