@@ -16,6 +16,7 @@
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 // Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
+// Nov 29, 2011 release 16 - read pixel colour and new colour functions
 //
 //
 // CC = BY NC SA
@@ -166,7 +167,7 @@ uint8_t Serial_LCD::setOrientation(uint8_t b) {   // Display Control Functions â
 
 
 uint8_t Serial_LCD::getOrientation() { 
-return _orientation; 
+  return _orientation; 
 } 
 
 uint8_t Serial_LCD::setTouch(bool b) {
@@ -257,6 +258,7 @@ uint8_t Serial_LCD::setBackGroundColour(uint16_t colour) {
   return nacAck();
 }
 
+
 uint8_t Serial_LCD::point(uint16_t x1, uint16_t y1, uint16_t colour) {
   _port->print('P');
 
@@ -266,6 +268,20 @@ uint8_t Serial_LCD::point(uint16_t x1, uint16_t y1, uint16_t colour) {
 
   return nacAck();
 }  
+
+
+uint16_t Serial_LCD::readPixel(uint16_t x1, uint16_t y1) {
+  _port->print('R');
+
+  _port->print(x1);
+  _port->print(y1);
+
+  while (_port->available()<2);
+  uint16_t c=0;
+  c = _port->read() << 8;
+  c += _port->read();
+  return c;
+}
 
 
 uint8_t Serial_LCD::triangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t colour) {
@@ -666,9 +682,30 @@ uint8_t Serial_LCD::playSoundSD(String filename, uint8_t option0) {
 
 
 uint16_t Serial_LCD::rgb16(uint8_t red8, uint8_t green8, uint8_t blue8) {
-  // rgb16 = red5 green6 blue5
+  // deprecated
   return (red8 >> 3) << 11 | (green8 >> 2) << 5 | (blue8 >> 3);
 }
+
+
+uint16_t Serial_LCD::setColour(uint8_t red8, uint8_t green8, uint8_t blue8) {
+    // rgb16 = red5 green6 blue5
+    return (red8 >> 3) << 11 | (green8 >> 2) << 5 | (blue8 >> 3);
+}
+
+
+void Serial_LCD::splitColour(uint16_t rgb, uint8_t &red, uint8_t &green, uint8_t &blue) {
+  // rgb16 = red5 green6 blue5
+    red   = (rgb & 0b1111100000000000) >> 11 << 3;
+    green = (rgb & 0b0000011111100000) >>  5 << 2;
+    blue  = (rgb & 0b0000000000011111)       << 3;
+}
+
+
+uint16_t Serial_LCD::halfColour(uint16_t rgb) {
+    // rgb16 = red5 green6 blue5 
+    return (rgb & 0b1111100000000000) >> 1 | (rgb & 0b0000011111100000) >> 1 | (rgb & 0b0000000000011111) >> 1;
+}
+
 
 
 uint8_t Serial_LCD::nacAck() {
@@ -686,6 +723,8 @@ void Serial_LCD::_swap(uint16_t &a, uint16_t &b) {
   a=b;
   b=w;
 }
+
+
 
 
 

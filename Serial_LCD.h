@@ -17,6 +17,7 @@
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 // Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
 // Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
+// Nov 29, 2011 release 16 - read pixel colour and new colour functions
 //
 //
 // CC = BY NC SA
@@ -80,7 +81,7 @@ public:
   uint8_t rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t colour);  // Draw Rectangle – 72hex 
   uint8_t ellipse(uint16_t x, uint16_t y, uint16_t rx, uint16_t ry, uint16_t colour); // Draw Ellipse – 65hex 
   uint8_t point(uint16_t x1, uint16_t y1, uint16_t colour);   // Draw Pixel – 50hex 
-  // Read Pixel – 52hex 
+  uint16_t readPixel(uint16_t x1, uint16_t y1); // Read Pixel – 52hex 
   // Screen Copy-Paste – 63hex 
   // Replace colour – 6Bhex 
   uint8_t setPenSolid(bool b);    // Set Pen Size 1=solid; 0=wire frame – 70hex
@@ -114,7 +115,6 @@ public:
   // Display Video-Animation Clip from Card (RAW) - @56hex 
   // Run Script (4DSL) Program from Card (RAW) - @50hex
 
-  // 2011-06-29 release 3
   // 2.6 SD Memory Card Commands (FAT16-Level/DOS)
   uint8_t initSD();   // Initialise Memory Card - @69hex 
   // Read File from Card (FAT) - @61hex 
@@ -132,11 +132,17 @@ public:
   // Run Script (4DSL) Program from Card (FAT) - @70hex
 
   // Utilities
-  uint16_t rgb16(uint8_t red, uint8_t green, uint8_t blue);
+  uint16_t setColour(uint8_t red, uint8_t green, uint8_t blue);
+  void splitColour(uint16_t rgb, uint8_t &red, uint8_t &green, uint8_t &blue);
+  uint16_t halfColour(uint16_t rgb);
+    
   uint8_t nacAck(); // 0x06=success
   uint8_t fontX() {     return _fontX;   };	
   uint8_t fontY() {     return _fontY;   };	
 
+    
+    // Deprecated
+    uint16_t rgb16(uint8_t red, uint8_t green, uint8_t blue); 
 
 private:
   ProxySerial * _port;
