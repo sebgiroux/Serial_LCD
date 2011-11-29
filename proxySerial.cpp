@@ -16,6 +16,7 @@
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 // Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
+// Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
 //
 //
 // CC = BY NC SA

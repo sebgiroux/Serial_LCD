@@ -33,41 +33,41 @@ void setup() {
   Serial.begin(19200);
   Serial.print("\n\n\n***\n");
 
-//  // === Serial port initialisation
-//  // --- SoftwareSerial Case - Arduino only
+  //  // === Serial port initialisation
+  //  // --- SoftwareSerial Case - Arduino only
   myNSS.begin(9600);
   Serial.print("SoftwareSerial\t");
   Serial.print("\n");
-//  //
-//  // --- HardwareSerial Case - Arduino + chipKIT
-//  Serial1.begin(9600);
-//  Serial.print("HardwareSerial\t");
-//  Serial.print("\n");
-//  // 
-//  // --- i2cSerial Case - Arduino + chipKIT
-//  Wire.begin();
-//  myI2C.begin(9600);
-//  Serial.print("HardwareSerial\t");
-//  Serial.print("\n");
-//  //
-//  // ===
+  //  //
+  //  // --- HardwareSerial Case - Arduino + chipKIT
+  //  Serial1.begin(9600);
+  //  Serial.print("HardwareSerial\t");
+  //  Serial.print("\n");
+  //  // 
+  //  // --- i2cSerial Case - Arduino + chipKIT
+  //  Wire.begin();
+  //  myI2C.begin(9600);
+  //  Serial.print("HardwareSerial\t");
+  //  Serial.print("\n");
+  //  //
+  //  // ===
 
   myLCD.begin();
 
   delay(10);
   myLCD.setSpeed(38400);
 
-//  // === Serail port speed up
-//  // --- SoftwareSerial Case - Arduino only
+  //  // === Serail port speed up
+  //  // --- SoftwareSerial Case - Arduino only
   myNSS.begin(38400);
-//  //
-//  // --- HardwareSerial Case - Arduino + chipKIT
-//  Serial1.begin(38400);
-//  // 
-//  // --- i2cSerial Case - Arduino + chipKIT
-//  myI2C.begin(38400);
-//  //
-//  // ===  
+  //  //
+  //  // --- HardwareSerial Case - Arduino + chipKIT
+  //  Serial1.begin(38400);
+  //  // 
+  //  // --- i2cSerial Case - Arduino + chipKIT
+  //  myI2C.begin(38400);
+  //  //
+  //  // ===  
 
   myLCD.setOrientation(0x03);
 
@@ -139,6 +139,7 @@ void loop() {
   myLCD.gText( 250, 225, 0xffff, ftoa(millis()-l, 0, 6));
   l=millis();
 }
+
 
 
 

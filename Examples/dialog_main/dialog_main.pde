@@ -1,5 +1,10 @@
+// Dialog example
+//
+// CC = BY NC SA
+// http://sites.google.com/site/vilorei/
+
 #include "WProgram.h"
-#include <Wire.h>
+//#include <Wire.h>
 
 #include "Serial_LCD.h"
 #include "button.h"
@@ -12,7 +17,7 @@
 
 #include "proxySerial.h"
 
-// Arduino Case ---
+//// Arduino Case ---
 #if defined(__AVR__)
 #include "NewSoftSerial.h"
 NewSoftSerial nss(2, 3); // RX, TX
@@ -25,7 +30,6 @@ ProxySerial mySerial(&Serial1);
 #else
 #error Non defined board
 #endif 
-
 
 Serial_LCD myLCD( &mySerial); 
 
@@ -46,16 +50,19 @@ void setup() {
   Serial.print("avr\t");
   Serial.print(__AVR__);
   Serial.print("\n");
+  nss.begin(9600);
+  
 #elif defined(__PIC32MX__) 
   Serial.print("chipKIT\t");
   Serial.print(__PIC32MX__);
   Serial.print("\n");
+  Serial1.begin(9600);
 #endif 
 
   myLCD.begin();
   myLCD.setOrientation(0x03);
 
-  Wire.begin();
+//  Wire.begin();
 
   myLCD.setPenSolid(true);
   myLCD.setFontSolid(true);

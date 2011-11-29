@@ -15,6 +15,8 @@
 // Oct 24, 2011 release 11 - serial port managed in main only - setSpeed added - proxySerial still needed
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
+// Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
+//
 //
 // CC = BY NC SA
 // http://sites.google.com/site/vilorei/
@@ -83,7 +85,7 @@ uint8_t Serial_LCD::setSpeed(uint16_t speed) {
     _port->print((uint8_t)a); 
     while (!_port->available());
     a=_port->read();
-    
+
   }
   a=0x06;
   return a;
@@ -162,6 +164,10 @@ uint8_t Serial_LCD::setOrientation(uint8_t b) {   // Display Control Functions â
   return nacAck();
 }
 
+
+uint8_t Serial_LCD::getOrientation() { 
+return _orientation; 
+} 
 
 uint8_t Serial_LCD::setTouch(bool b) {
   if (b) {
@@ -480,8 +486,8 @@ uint8_t Serial_LCD::initSD() {
   char a = nacAck();
   _checkedSD = (boolean)(a==0x06);
 
-  Serial.print("SDinit \t");
-  Serial.println(_checkedSD, DEC);
+  //  Serial.print("SDinit \t");
+  //  Serial.println(_checkedSD, DEC);
 
   return a;
 }
@@ -589,15 +595,20 @@ uint8_t Serial_LCD::findFile(String filename) {
 }
 
 
-// Screen Copy-Save to Card (FAT) - @63hex 
 uint8_t Serial_LCD::saveScreenSD(String filename) {    
+  saveScreenSD(filename, 0, 0, 319, 239);
+}
+
+// Screen Copy-Save to Card (FAT) - @63hex 
+// x1, y1 x2, y2: same coordinates as rectangle
+uint8_t Serial_LCD::saveScreenSD(String filename, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {    
   if (_checkedSD==1) {
     _port->print('@');
     _port->print('c');
-    _port->print((uint16_t)0);
-    _port->print((uint16_t)0);
-    _port->print((uint16_t)319);
-    _port->print((uint16_t)239);
+    _port->print((uint16_t)x1);
+    _port->print((uint16_t)y1);
+    _port->print((uint16_t)(x2-x1+1));
+    _port->print((uint16_t)(y2-y1+1));
     _port->print(filename);
     _port->print((char)0x00);
 
@@ -607,16 +618,21 @@ uint8_t Serial_LCD::saveScreenSD(String filename) {
     return 0x15; 
   }
 }
-
 // Display Image-Icon from Card (FAT) - @6Dhex 
 uint8_t Serial_LCD::readScreenSD(String filename) {   
+  readScreenSD(filename, 0, 0);
+}
+
+// Display Image-Icon from Card (FAT) - @6Dhex 
+// x1, y1: left-top coordinates
+uint8_t Serial_LCD::readScreenSD(String filename, uint16_t x1, uint16_t y1) {   
   if (_checkedSD==1) {
     _port->print('@');
     _port->print('m');
     _port->print(filename);
     _port->print((char)0x00);
-    _port->print((uint16_t)0x00);
-    _port->print((uint16_t)0x00);
+    _port->print((uint16_t)x1);
+    _port->print((uint16_t)y1);
     _port->print((uint16_t)0x00);
     _port->print((uint16_t)0x00);
 
@@ -670,6 +686,7 @@ void Serial_LCD::_swap(uint16_t &a, uint16_t &b) {
   a=b;
   b=w;
 }
+
 
 
 

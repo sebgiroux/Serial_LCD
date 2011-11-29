@@ -24,6 +24,7 @@
 
 #define ROWS 80
 #define COLS 60
+#define PERCENT 70 // % dead
 
 // bits 7 . 6 . 5 . 4 . 3 . 2 . 1 . 0
 // [3] = dead 0, alive 1
@@ -51,7 +52,7 @@ void new_game() {
   if(rf == df) {
     for(i=0; i<ROWS; i++) {
       for(j=0; j<COLS; j++) {
-        if(random(100)>80) {
+        if(random(100)>PERCENT) {
           _screen[rf^1][i][j] = ALIVE; 
         } 
         else {

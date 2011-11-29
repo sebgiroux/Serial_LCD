@@ -16,6 +16,7 @@
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 // Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
+// Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
 //
 //
 // CC = BY NC SA
@@ -57,6 +58,7 @@ public:
   uint8_t setDisplay(bool b);   // Display Control Functions – 59hex
   uint8_t setContrast(uint8_t b);   // Display Control Functions – 59hex
   uint8_t setOrientation(uint8_t b);   // Display Control Functions – 59hex
+  uint8_t getOrientation();  // Display Control Functions – 59hex
   uint8_t setTouch(bool b);   // Display Control Functions – 59hex
   uint8_t setVolume(uint8_t percent); // Set Volume - 76hex 
   // Sleep – 5Ahex 
@@ -123,7 +125,9 @@ public:
   // List Directory from Card (FAT) - @64hex 
   uint8_t findFile(String filename);
   uint8_t saveScreenSD(String filename);   // Screen Copy-Save to Card (FAT) - @63hex 
+  uint8_t saveScreenSD(String filename, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);  // x1, y1 x2, y2: same coordinates as rectangle
   uint8_t readScreenSD(String filename);   // Display Image-Icon from Card (FAT) - @6Dhex     
+  uint8_t readScreenSD(String filename, uint16_t x1, uint16_t y1); // x1, y1: left-top coordinates
   uint8_t playSoundSD(String filename, uint8_t option0=0);  // Play Audio WAV file from Card (FAT) - @6Chex 
   // Run Script (4DSL) Program from Card (FAT) - @70hex
 

@@ -16,6 +16,7 @@
 // Oct 27, 2011 release 12 - setSpeed fixed for 155200 
 // Nov 02, 2011 release 13 - HardwareSerial derived from Stream on chipKIT platform by msproul
 // Nov 09, 2011 release 14 - proxySerial as autonomous project with ftoa utility
+// Nov 25, 2011 release 15 - faster dialog show/hide and optional area for screen copy to/read from SD
 //
 //
 // CC = BY NC SA
@@ -184,34 +185,40 @@ String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_
 
 
 String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_t highColour0, uint16_t lowColour0, String text1, String button1="OK", uint16_t textColour1=0xffff, uint16_t highColour1=0x000f, uint16_t lowColour1=0x0008, String text2="", String button2="", uint16_t textColour2=0, uint16_t highColour2=0, uint16_t lowColour2=0, String text3="", String button3="", uint16_t textColour3=0, uint16_t highColour3=0, uint16_t lowColour3=0) {
-  // init SD
-  //  Serial.print("initSD");
-  //  Serial.print("\t");
+  // Check SD
   if (_checkedSD==false) {
     char a=_pscreen->initSD();
     //    Serial.print(a, DEC); 
     _checkedSD=(boolean)(a==0x06);
-    delay(3000);
+    //    delay(3000);
   } 
   else {
     //    Serial.print("done"); 
   }  
   //  Serial.print("\n");
 
-  // Save initial screen
-  delay(100);
-  //  uint16_t l=millis();
-  a=_pscreen->saveScreenSD("dialog.tmp");
-  //  Serial.print("saveScreenSD");
-  //  Serial.print("\t");
-  //  l=millis()-l;
-  //  Serial.print(l, DEC); 
-  //  Serial.print("\n");
-  delay(100);
+    uint16_t x0 = 60;
+    uint16_t y0 = 20;
 
   // landscape and portrait coordinates
-  uint16_t x0 = 60;
-  uint16_t y0 = 20;
+  if ((_pscreen->getOrientation()==0x03) || (_pscreen->getOrientation()==0x04)) {
+  } 
+  else {
+    x0 = 20;
+    y0 = 60;
+  }    
+
+  if (_checkedSD==true) {
+    // Save initial screen
+    //  uint16_t l=millis();
+    a=_pscreen->saveScreenSD("dialog.tmp", x0, y0, 200+x0, 200+y0);
+    //  Serial.print("saveScreenSD");
+    //  Serial.print("\t");
+    //  l=millis()-l;
+    //  Serial.print(l, DEC); 
+    //  Serial.print("\n");
+    //  delay(100);
+  }
 
 
   // Draw window
@@ -310,24 +317,29 @@ String dialog::prompt(String text0, uint8_t kind0, uint16_t textColour0, uint16_
     }
   }
 
-  delay(100);
+  //  delay(100);
 
-  // Restore initial screen
-  //  Serial.print("readScreenSD");
-  //  Serial.print("\t");
-  //  l=millis();
-  a=_pscreen->readScreenSD("dialog.tmp");
-  //  Serial.print(a, DEC);
-  //  Serial.print("\n");
-  //  Serial.print("readScreenSD");
-  //  Serial.print("\t");
-  //  l=millis()-l;
-  //  Serial.print(l, DEC); 
-  //  Serial.print("\n");
-  delay(100);
+  if (_checkedSD==true) {
+    // Restore initial screen
+    //  Serial.print("readScreenSD");
+    //  Serial.print("\t");
+    //  l=millis();
+    a=_pscreen->readScreenSD("dialog.tmp", x0, y0);
+    //  Serial.print(a, DEC);
+    //  Serial.print("\n");
+    //  Serial.print("readScreenSD");
+    //  Serial.print("\t");
+    //  l=millis()-l;
+    //  Serial.print(l, DEC); 
+    //  Serial.print("\n");
+    //  delay(100);
+  }
 
   return answer;
 }
+
+
+
 
 
 

@@ -1,4 +1,7 @@
 Serial_LCD	KEYWORD1
+ProxySerial	KEYWORD1
+button	KEYWORD1
+dialog	KEYWORD1
 
 WhoAmI	KEYWORD2
 begin	KEYWORD2
@@ -8,7 +11,10 @@ setBacklight	KEYWORD2
 setDisplay	KEYWORD2
 setContrast	KEYWORD2
 setOrientation	KEYWORD2
+getOrientation	KEYWORD2
 setTouch	KEYWORD2
+setVolume	KEYWORD2
+setBackGroundColour	KEYWORD2
 off	KEYWORD2
 circle	KEYWORD2
 triangle	KEYWORD2
@@ -31,14 +37,16 @@ define	KEYWORD2
 draw	KEYWORD2
 enable	KEYWORD2
 check	KEYWORD2
+initSD	KEYWORD2
+saveScreenSD	KEYWORD2
+readScreenSD	KEYWORD2
+state	KEYWORD2
 
 _lcd_nss	LITERAL1
 _font	LITERAL1
 _fontX	LITERAL1
 _fontY	LITERAL1
 _touch_buffer	LITERAL1
-button	LITERAL1
-dialog	LITERAL1
 
 _uIntPrint	LITERAL2
 _swap	LITERAL2
@@ -47,4 +55,5 @@ _stringPrint	LITERAL2
 _byteRead	LITERAL2
 _serialAvailable	LITERAL2
 _serialFlush	LITERAL2
-
+_pscreen	LITERAL2
+_checkedSD	LITERAL2
