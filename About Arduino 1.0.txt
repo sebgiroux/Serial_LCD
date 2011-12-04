@@ -1,0 +1,17 @@
+// — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ — ~ —
+//
+// About Arduino 1.0
+//
+// 
+// 1• Because Arduino 1.0 brings numerous and in-depth modifications 
+// compared to Arduino 0022,
+// 
+// 2• and because MPIDE for Arduino and chipKIT is still on release 0022,
+// 
+// I'd rather prefer to wait for a stable releasing of MPIDE 1.0 
+// before embarking on the adventure !
+// 
+// 
+// Dec 4th, 2011
+// 
+// 
