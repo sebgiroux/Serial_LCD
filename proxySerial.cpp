@@ -89,6 +89,7 @@ String ftoa(float number, byte precision, byte size) {
 }
 
 
+
 // Object
 
 ProxySerial::ProxySerial(Stream * port0) {
