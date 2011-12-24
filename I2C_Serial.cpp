@@ -1,4 +1,4 @@
-//
+ //
 // SC16IS750 I2C slave bridge to serial
 // Arduino + chipKIT Library
 //
@@ -20,61 +20,61 @@
 
 // Writes value to address register on device
 static void _writeTo(uint8_t device, uint8_t address, uint8_t value) {
-  Wire.beginTransmission(device); //start transmission to ACC 
+  Wire.beginTransmission(device); // start transmission to device 
   Wire.send(address);             // send register address
   Wire.send(value);               // send value to write
-  Wire.endTransmission();         //end transmission
+  Wire.endTransmission();         // end transmission
 }
 
 
 // Reads number uint8_ts starting from address register on device uint8_to buffer array
 static void _readFrom(uint8_t device, uint8_t address, uint8_t number, uint8_t buffer[]) {
-  Wire.beginTransmission(device); //start transmission to ACC 
-  Wire.send(address);        //sends address to read from
-  Wire.endTransmission(); //end transmission
+  Wire.beginTransmission(device); // start transmission to device 
+  Wire.send(address);             // sends address to read from
+  Wire.endTransmission();         // end transmission
 
-    Wire.beginTransmission(device); //start transmission to ACC
-  Wire.requestFrom(device, number);    // request 6 uint8_ts from ACC
+  Wire.beginTransmission(device);    // start transmission to device
+  Wire.requestFrom(device, number);  // request number uint8_ts from device
 
   uint8_t i = 0;
-  while(Wire.available())    //ACC may send less than requested (abnormal)
+  while(Wire.available())       // device may send less than requested (abnormal)
   { 
     buffer[i] = Wire.receive(); // receive a uint8_t
     i++;
   }
-  Wire.endTransmission(); //end transmission
+  Wire.endTransmission();       //end transmission
 }
 
 
 
 static uint8_t _readByteFrom(int8_t device, uint8_t address) {
-  Wire.beginTransmission(device); //start transmission to ACC 
-  Wire.send(address);        //sends address to read from
-  Wire.endTransmission(); //end transmission
+  Wire.beginTransmission(device); // start transmission to device  
+  Wire.send(address);             // send address to read from
+  Wire.endTransmission();         // end transmission
 
-  Wire.beginTransmission(device); //start transmission to ACC
-  Wire.requestFrom(device, 1);    // request 1 uint8_t from ACC
+  Wire.beginTransmission(device); // start transmission to device
+  Wire.requestFrom(device, 1);    // request 1 uint8_t from device
 
-  while(!Wire.available());    //ACC may send less than requested (abnormal)
-  uint8_t b = Wire.receive(); // receive a uint8_t
-  Wire.endTransmission(); //end transmission
+  while(!Wire.available());      // device may send less than requested (abnormal)
+  uint8_t b = Wire.receive();    // receive a uint8_t
+  Wire.endTransmission();        // end transmission
   return b;
 }
 
 // ---------------- Class
 
-I2C_Serial::I2C_Serial() // constructor
-// as per http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1250997678
+I2C_Serial::I2C_Serial() 
+// constructor as per http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1250997678
 {
   _address=0x48; 
 }
 
 I2C_Serial::I2C_Serial(uint8_t n) // constructor
 {
-  _address=0x48;                  // a0/a1=+/+ : default I2C serial port
-  if (n==1) _address=0x49;        // a0/a1=-/+ : secondary I2C serial port
-  else if (n==2) _address=0x4c;   // a0/a1=+/- : RFID ID-2 sensor board
-  else if (n==12) _address=0x4d;  // a0/a1=-/- : RFID ID-12 sensor board
+  _address=0x48;                  // 0x90 a0/a1=+/+ : default I2C serial port
+  if (n==1) _address=0x49;        // 0x92 a0/a1=+/- : secondary I2C serial port
+  else if (n==2) _address=0x4c;   // 0x98 a0/a1=-/+ : RFID ID-2 sensor board
+  else if (n==12) _address=0x4d;  // 0x9a a0/a1=-/- : RFID ID-12 sensor board
 }
 
 String I2C_Serial::WhoAmI() {
