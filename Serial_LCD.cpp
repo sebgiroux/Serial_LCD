@@ -508,6 +508,65 @@ uint8_t Serial_LCD::initSD() {
   return a;
 }
 
+/*
+  Read File from Card (FAT) - @61hex 
+  
+  filename   - The filename of the file to read
+  bytes      - The number of bytes to get each time (0=all, not a good idea when filesize > 512b)
+  cbReadFile - Callback function that is called every time data is received so a parser do its job.
+*/
+uint8_t Serial_LCD::readTextFile(String filename, uint8_t bytes, void (*cbReadFile)(String text)) {  
+  if (_checkedSD == 1) {
+    _port->print('@');
+    _port->print('a');
+    _port->print(bytes);
+    _port->print(filename);
+    _port->print((char) 0x00);    
+    
+    uint8_t i = 0;
+    char c = 0;
+    String s = "";
+    boolean done = false;
+    boolean fileSizeRead = false;
+    
+    do {
+      _port->print((char) 0x06);     
+        
+      i = 0;
+      s = "";
+      
+      if (!fileSizeRead && _port->available() > 0) {
+        uint8_t j = 0;
+        while (j < 4) {
+          _port->read();
+          j++;
+        }
+        
+        fileSizeRead = true;
+      }
+      else {
+        do {
+           c = _port->read();  
+           if (c == 0x06) {
+             done = true;
+             break;
+           }
+           else {
+             s = s + String(c);
+             i++;
+           }
+        } while (_port->available() && i < bytes);
+  
+        if (fileSizeRead) cbReadFile(s);
+      }
+    } while (!done && c != 0x06);
+    
+    return nacAck();
+  } 
+  else { 
+    return 0x15; 
+  }
+}
 
 // Write File to Card (FAT) - @74hex 
 // default option = 0

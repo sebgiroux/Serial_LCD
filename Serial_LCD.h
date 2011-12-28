@@ -117,7 +117,7 @@ public:
 
   // 2.6 SD Memory Card Commands (FAT16-Level/DOS)
   uint8_t initSD();   // Initialise Memory Card - @69hex 
-  // Read File from Card (FAT) - @61hex 
+  uint8_t readTextFile(String filename, uint8_t bytes, void (*cbReadFile)(String text));  // Read File from Card (FAT) - @61hex
   // Write File to Card (FAT) - @74hex 
   uint8_t writeString2File(String filename, String text, uint8_t option=0x00);   
   uint8_t appendString2File(String filename, String text);
